@@ -630,7 +630,6 @@ public class ServerSync extends AppCompatActivity {
     }
 
 
-
     // Method to inform remote MySQL DB about completion of Sync activity
 
     public void updateMySQLSyncSts(String json) {
@@ -667,12 +666,558 @@ public class ServerSync extends AppCompatActivity {
     public void Sync(View v){
         if(checkNetwork()){
             //syncSQLiteMySQLDB();
-            syncMySQLSQLiteDB();
-            syncMySQLSQLiteDBcat();
+           // syncMySQLSQLiteDB();
+          //  syncMySQLSQLiteDBcat();
+            //syncMySQLSQLiteDBadd();
+           syncMySQLSQLiteDBprod();
+           // syncMySQLSQLiteDBprodComp();
             Toast.makeText(ServerSync.this, " Internet", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(ServerSync.this, "No Internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public void syncMySQLSQLiteDBadd() {
+        final ProgressDialog prgDialog = new ProgressDialog(this);
+        // Create AsycHttpClient object
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        // Http Request Params Object
+
+        RequestParams params = new RequestParams();
+
+        // Show ProgressBar
+
+        prgDialog.show();
+
+        // Make Http call to getusers.php
+
+        client.post("http://10.0.2.2:10080/sqlitemysqlsync/getaddress.php", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = null;
+                try {
+                    response = new String(responseBody, "UTF-8");
+                    // response = "{".concat(response).concat("}");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                // Hide ProgressBar
+
+                prgDialog.hide();
+
+                // Update SQLite DB with response sent by getusers.php
+
+                updateSQLiteadd(response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                // TODO Auto-generated method stub
+
+                // Hide ProgressBar
+
+                prgDialog.hide();
+
+                if (statusCode == 404) {
+
+                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+
+                } else if (statusCode == 500) {
+
+                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]",
+
+                            Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+
+        });
+
+    }
+
+    public void updateSQLiteadd(String response){
+
+        ArrayList<HashMap<String, String>> usersynclist = new ArrayList<HashMap<String, String>>();
+
+
+        // Create GSON object
+
+        Gson gson = new GsonBuilder().create();
+
+        try {
+
+            // Extract JSON array from the response
+
+            JSONArray arr = new JSONArray(response);
+
+            System.out.println(arr.length());
+
+            // If no of array elements is not zero
+
+            if(arr.length() != 0){
+
+                // Loop through each array element, get JSON object which has userid and username
+
+                for (int i = 0; i < arr.length(); i++) {
+
+                    // Get JSON object
+
+                    JSONObject obj = (JSONObject) arr.get(i);
+
+                    System.out.println(obj.get("id"));
+
+                    System.out.println(obj.get("houseno"));
+
+                    System.out.println(obj.get("mainroad"));
+
+                    System.out.println(obj.get("subroad"));
+
+                    System.out.println(obj.get("landmark"));
+
+                    System.out.println(obj.get("city"));
+
+                    System.out.println(obj.get("contactno"));
+
+                    System.out.println(obj.get("username"));
+                    // DB QueryValues Object to insert into SQLite
+
+                    ContentValues values = new ContentValues();
+
+                    values.put(Contract.Address.Address_HouseNo, obj.get("houseno").toString());
+                    values.put(Contract.Address.Address_MainRoad, obj.get("mainroad").toString());
+                    values.put(Contract.Address.Address_SubRoad, obj.get("subroad").toString());
+                    values.put(Contract.Address.Address_LandMark, obj.get("landmark").toString());
+                    values.put(Contract.Address.Address_City, obj.get("city").toString());
+                    values.put(Contract.Address.Address_ContactNo, obj.get("contactno").toString());
+                    values.put(Contract.Address.Address_Username, obj.get("username").toString());
+                    getContentResolver().insert(Contract.Address.CONTENT_URI,values);
+
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // Add status for each User in Hashmap
+
+                    map.put("id", obj.get("id").toString());
+
+                    map.put("status", "yes");
+
+                    usersynclist.add(map);
+
+                }
+
+                // Inform Remote MySQL DB about the completion of Sync activity by passing Sync status of Users
+
+                updateMySQLSyncStsadd(gson.toJson(usersynclist));
+
+                // Reload the Main Activity
+
+                //reloadActivity();
+
+            }
+
+        } catch (JSONException e) {
+
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void updateMySQLSyncStsadd(String json) {
+
+        System.out.println(json);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+
+        params.put("syncsts", json);
+
+        // Make Http call to updatesyncsts.php with JSON parameter which has Sync statuses of Users
+        //  10.0.2.2
+        client.post("http://10.0.2.2:10080/sqlitemysqlsync/updatesyncstsadd.php", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(getApplicationContext(), "MySQL DB has been informed about Sync activity", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_LONG).show();
+            }
+
+
+
+        });
+
+    }
+
+    public void syncMySQLSQLiteDBprod() {
+        final ProgressDialog prgDialog = new ProgressDialog(this);
+        // Create AsycHttpClient object
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        // Http Request Params Object
+
+        RequestParams params = new RequestParams();
+
+        // Show ProgressBar
+
+        prgDialog.show();
+
+        // Make Http call to getusers.php 10.0.2.2
+
+        client.post("http://192.168.8.106:10080/sqlitemysqlsync/getproduct.php", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = null;
+                try {
+                    response = new String(responseBody, "UTF-8");
+                    // response = "{".concat(response).concat("}");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                // Hide ProgressBar
+
+                prgDialog.hide();
+
+                // Update SQLite DB with response sent by getusers.php
+
+                updateSQLiteprod(response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                // TODO Auto-generated method stub
+
+                // Hide ProgressBar
+
+                prgDialog.hide();
+
+                if (statusCode == 404) {
+
+                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+
+                } else if (statusCode == 500) {
+
+                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]",
+
+                            Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+
+        });
+
+    }
+
+    public void updateSQLiteprod(String response){
+
+        ArrayList<HashMap<String, String>> usersynclist = new ArrayList<HashMap<String, String>>();
+
+
+        // Create GSON object
+
+        Gson gson = new GsonBuilder().create();
+
+        try {
+
+            // Extract JSON array from the response
+
+            JSONArray arr = new JSONArray(response);
+
+            System.out.println(arr.length());
+
+            // If no of array elements is not zero
+
+            if(arr.length() != 0){
+
+                // Loop through each array element, get JSON object which has userid and username
+
+                for (int i = 0; i < arr.length(); i++) {
+
+                    // Get JSON object
+
+                    JSONObject obj = (JSONObject) arr.get(i);
+
+                    System.out.println(obj.get("id"));
+
+                    System.out.println(obj.get("name"));
+
+                    System.out.println(obj.get("description"));
+                    System.out.println(obj.get("price"));
+                    System.out.println(obj.get("image1"));
+                    System.out.println(obj.get("image2"));
+                    System.out.println(obj.get("image3"));
+                    System.out.println(obj.get("category"));
+                    System.out.println(obj.get("status"));
+
+                    // DB QueryValues Object to insert into SQLite
+
+                    ContentValues values = new ContentValues();
+
+                    values.put(Contract.Products.Product_name, obj.get("name").toString());
+                    values.put(Contract.Products.Product_Description, obj.get("description").toString());
+                    values.put(Contract.Products.Product_Price, obj.get("price").toString());
+                    values.put(Contract.Products.Product_Image1, obj.get("image1").toString());
+                    values.put(Contract.Products.Product_Image2, obj.get("image2").toString());
+                    values.put(Contract.Products.Product_Image3, obj.get("image3").toString());
+                    values.put(Contract.Products.Product_Category, obj.get("category").toString());
+                    values.put(Contract.Products.Product_Status, obj.get("status").toString());
+                    getContentResolver().insert(Contract.Products.CONTENT_URI,values);
+
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // Add status for each User in Hashmap
+
+                    map.put("id", obj.get("id").toString());
+
+                    map.put("status", "yes");
+
+                    usersynclist.add(map);
+
+                }
+
+                // Inform Remote MySQL DB about the completion of Sync activity by passing Sync status of Users
+
+                updateMySQLSyncStsprod(gson.toJson(usersynclist));
+
+                // Reload the Main Activity
+
+                //reloadActivity();
+
+            }
+
+        } catch (JSONException e) {
+
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void updateMySQLSyncStsprod(String json) {
+
+        System.out.println(json);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+
+        params.put("syncsts", json);
+
+        // Make Http call to updatesyncsts.php with JSON parameter which has Sync statuses of Users
+        //  10.0.2.2
+        client.post("http://192.168.8.106:10080/sqlitemysqlsync/updatesyncstsprod.php", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(getApplicationContext(), "MySQL DB has been informed about Sync activity", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_LONG).show();
+            }
+
+
+
+        });
+
+    }
+
+    public void syncMySQLSQLiteDBprodComp() {
+        final ProgressDialog prgDialog = new ProgressDialog(this);
+        // Create AsycHttpClient object
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        // Http Request Params Object
+
+        RequestParams params = new RequestParams();
+
+        // Show ProgressBar
+
+        prgDialog.show();
+
+        // Make Http call to getusers.php
+
+        client.post("http://10.0.2.2:10080/sqlitemysqlsync/getprodcomp.php", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = null;
+                try {
+                    response = new String(responseBody, "UTF-8");
+                    // response = "{".concat(response).concat("}");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                // Hide ProgressBar
+
+                prgDialog.hide();
+
+                // Update SQLite DB with response sent by getusers.php
+
+                updateSQLiteprodComp(response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                // TODO Auto-generated method stub
+
+                // Hide ProgressBar
+
+                prgDialog.hide();
+
+                if (statusCode == 404) {
+
+                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+
+                } else if (statusCode == 500) {
+
+                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]",
+
+                            Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+
+        });
+
+    }
+
+    public void updateSQLiteprodComp(String response){
+
+        ArrayList<HashMap<String, String>> usersynclist = new ArrayList<HashMap<String, String>>();
+
+
+        // Create GSON object
+
+        Gson gson = new GsonBuilder().create();
+
+        try {
+
+            // Extract JSON array from the response
+
+            JSONArray arr = new JSONArray(response);
+
+            System.out.println(arr.length());
+
+            // If no of array elements is not zero
+
+            if(arr.length() != 0){
+
+                // Loop through each array element, get JSON object which has userid and username
+
+                for (int i = 0; i < arr.length(); i++) {
+
+                    // Get JSON object
+
+                    JSONObject obj = (JSONObject) arr.get(i);
+
+                    System.out.println(obj.get("id"));
+
+                    System.out.println(obj.get("productname"));
+
+                    System.out.println(obj.get("quantity"));
+                    System.out.println(obj.get("colour"));
+                    System.out.println(obj.get("size"));
+                    // DB QueryValues Object to insert into SQLite
+
+                    ContentValues values = new ContentValues();
+
+                    values.put(Contract.ProdComponent.ProdComponent_ProductName, obj.get("productname").toString());
+                    values.put(Contract.ProdComponent.ProdComponent_qty, obj.get("quantity").toString());
+                    values.put(Contract.ProdComponent.ProdComponent_colour, obj.get("colour").toString());
+                    values.put(Contract.ProdComponent.ProdComponent_size, obj.get("size").toString());
+                    getContentResolver().insert(Contract.ProdComponent.CONTENT_URI,values);
+
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // Add status for each User in Hashmap
+
+                    map.put("id", obj.get("id").toString());
+
+                    map.put("status", "1");
+
+                    usersynclist.add(map);
+
+                }
+
+                // Inform Remote MySQL DB about the completion of Sync activity by passing Sync status of Users
+
+                updateMySQLSyncStsprodComp(gson.toJson(usersynclist));
+
+                // Reload the Main Activity
+
+                //reloadActivity();
+
+            }
+
+        } catch (JSONException e) {
+
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void updateMySQLSyncStsprodComp(String json) {
+
+        System.out.println(json);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+
+        params.put("syncsts", json);
+
+        // Make Http call to updatesyncsts.php with JSON parameter which has Sync statuses of Users
+        //  10.0.2.2
+        client.post("http://10.0.2.2:10080/sqlitemysqlsync/updatesyncstsprodcomp.php", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(getApplicationContext(), "MySQL DB has been informed about Sync activity", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_LONG).show();
+            }
+
+
+
+        });
+
     }
 }

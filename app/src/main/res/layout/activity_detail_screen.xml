@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:id="@+id/rl"
+    android:background="@color/white_opaque"
+    tools:context="com.example.nazb.styleomega.DetailScreen">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/img_swiper"
+        android:layout_width="368dp"
+        android:layout_height="257dp">
+
+
+    </android.support.v4.view.ViewPager>
+
+
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="womens summer dress"
+        android:textSize="50px"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_swiper" />
+
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="summer backless chiffon dress beach party black and white"
+        android:textAlignment="center"
+        android:inputType="textMultiLine"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+        android:textSize="40px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="LKR 3,000"
+        android:textAlignment="center"
+        android:textColor="#ff0000"
+        android:textSize="40px"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <TextView
+        android:id="@+id/prefs"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:text="COLOR | SIZE"
+        android:textAlignment="center"
+        android:textSize="40px"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price"
+        android:contextClickable="true"
+        android:onClick="onPrefClick"/>
+
+    <LinearLayout
+        android:id="@+id/small_menu"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/Darktorq"
+        android:orientation="horizontal"
+        android:padding="20px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prefs"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <ImageView
+            android:id="@+id/addtocartimg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add_shopping_cart_white_24dp"
+            android:onClick="onAddtoCartClickFromDetailScreen"/>
+
+        <TextView
+            android:id="@+id/addtocarttext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:text="Add to Cart"
+            android:textAllCaps="true"
+            android:textColor="@color/white_opaque"
+            android:onClick="onAddtoCartClickFromDetailScreen"/>
+
+        <ImageView
+            android:id="@+id/buyitnowimg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20px"
+            android:clickable="true"
+            android:src="@drawable/ic_shopping_basket_white_24dp"
+            android:onClick="onBuyNowClickFromDetailScreen"/>
+
+        <TextView
+            android:id="@+id/buyitnowtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:text="Buy Now"
+            android:textAllCaps="true"
+            android:textColor="@color/white_opaque"
+            android:onClick="onBuyNowClickFromDetailScreen"/>
+
+        <ImageView
+            android:id="@+id/favouriteimg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20px"
+            android:clickable="true"
+            android:src="@drawable/ic_favorite_white_24dp"
+            android:onClick="onFavClick"/>
+
+        <TextView
+            android:id="@+id/favouritetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:text="Favourite"
+            android:textAllCaps="true"
+            android:textColor="@color/white_opaque"
+            android:onClick="onFavClick"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/inquiries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="7dp"
+        android:elevation="1dp"
+        android:text="Inquiries. . . "
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/small_menu"
+        android:onClick="onInquiriesClick"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

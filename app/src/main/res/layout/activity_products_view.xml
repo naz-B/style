@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_prod"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCDCDC">
+
+        <ImageButton
+            android:id="@+id/switch_view"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:onClick="switch_view"
+            android:src="@drawable/ic_view_list"/>
+    </LinearLayout>
+
+    <ViewStub
+        android:id="@+id/stub_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inflatedId="@+id/showlayout"
+        android:layout="@layout/activity_product_listview"/>
+
+    <ViewStub
+        android:id="@+id/stub_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inflatedId="@+id/showlayout"
+        android:layout="@layout/activity_product_gridview"/>
+</LinearLayout>

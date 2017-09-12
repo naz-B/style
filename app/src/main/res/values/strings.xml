@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">StyleOmega</string>
+    <string name="title_activity_main__screen">Main_Screen</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="log_in">Log In</string>
+    <string name="username">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="action_back">back</string>
+    <string name="create_account">Create Account</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="retype_pass">Re-Enter Password</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="login_register">Login | Register</string>
+    <string name="search_hint">Im Shopping For . . </string>
+    <string name="search_result">Search Result</string>
+    <string name="home">Home</string>
+    <string name="my_account">My Account</string>
+    <string name="favourite">My Favourites</string>
+    <string name="orders">My Orders</string>
+    <string name="cart">Shopping Cart</string>
+    <string name="button_save">Save</string>
+    <string name="share">share_button</string>
+    <string name="send_to">Send To</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="Planets">
+        <item>Sun</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+</resources>

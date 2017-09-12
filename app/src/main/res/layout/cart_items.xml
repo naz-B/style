@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:background="@color/white_opaque"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/shopImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/image1"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/item_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:maxLength="15"
+        android:ellipsize="end"
+        android:textSize="15dp"
+        android:layout_alignBaseline="@+id/shopTitle"
+        android:layout_alignBottom="@+id/shopTitle"
+        android:layout_toRightOf="@+id/shopImageView"
+        android:layout_toEndOf="@+id/shopImageView" />
+
+    <TextView
+        android:id="@+id/shopTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:maxLength="15"
+        android:ellipsize="end"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/checkBox"
+        android:layout_toRightOf="@+id/shopImageView"
+        android:layout_toEndOf="@+id/shopImageView"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp" />
+
+    <TextView
+        android:id="@+id/shopQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignLeft="@+id/shopPrice"
+        android:layout_alignStart="@+id/shopPrice" />
+
+    <TextView
+        android:id="@+id/shopPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textColor="#ff0000"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/shopTitle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:focusable="false"/>
+</RelativeLayout>

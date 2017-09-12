@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/poplayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/customborder"
+    android:orientation="vertical"
+
+    android:padding="50dp">
+
+    <EditText
+        android:id="@+id/popPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:layout_margin="10dp"
+        android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/popRePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Re-Enter Password"
+        android:layout_margin="10dp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/popButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Darktorq"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:text="@string/button_save" />
+
+</LinearLayout>

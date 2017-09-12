@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:background="@color/torq"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/loginregister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:cursorVisible="true"
+        android:onClick="onRegisterLoginClick"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/white_opaque"
+        android:textColorLink="@color/white_opaque"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>
+

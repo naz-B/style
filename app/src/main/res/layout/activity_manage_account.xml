@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/manageaccountlayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nazb.styleomega.ManageAccount"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+
+    <TextView
+        android:id="@+id/fnameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textSize="18dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/fnameData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="setPopUpWindow"
+        android:text="TextView"
+        android:textAlignment="inherit"
+        android:textSize="18dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fnameTitle"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_alignBaseline="@+id/fnameTitle"
+        android:layout_alignBottom="@+id/fnameTitle"
+        android:layout_alignLeft="@+id/emailData"
+        android:layout_alignStart="@+id/emailData"
+        />
+
+    <TextView
+        android:id="@+id/lnameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textSize="18dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="38dp"
+        android:layout_below="@+id/fnameTitle"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/lnameData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="setPopUpWindow"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textSize="18dp"
+        android:layout_alignBaseline="@+id/lnameTitle"
+        android:layout_alignBottom="@+id/lnameTitle"
+        android:layout_alignLeft="@+id/emailData"
+        android:layout_alignStart="@+id/emailData" />
+
+    <TextView
+        android:id="@+id/emailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textSize="18sp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/lnameTitle"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/emailData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textSize="18dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_alignBaseline="@+id/emailTitle"
+        android:layout_alignBottom="@+id/emailTitle"
+        android:layout_alignLeft="@+id/passData"
+        android:layout_alignStart="@+id/passData" />
+
+    <TextView
+        android:id="@+id/passTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        android:textSize="18dp"
+        android:layout_below="@+id/emailTitle"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/passData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="setPopUpWindowForPassword"
+        android:text="TextView"
+        android:textSize="18dp"
+        android:layout_above="@+id/linearLayout4"
+        android:layout_toRightOf="@+id/shipping_title"
+        android:layout_toEndOf="@+id/shipping_title"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginTop="21dp"
+        android:background="#dcdcdc"
+        android:layout_below="@+id/passTitle"
+        android:layout_marginLeft="0dp"
+        android:id="@+id/linearLayout4"></LinearLayout>
+
+    <TextView
+        android:id="@+id/shipping_title"
+        android:layout_width="139dp"
+        android:layout_height="23dp"
+        android:text="Shipping Addresses"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/passTitle"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.105" />
+
+    <TextView
+        android:id="@+id/addAdd"
+        android:layout_width="139dp"
+        android:layout_height="23dp"
+        android:text="Add"
+        android:textColor="#ff0000"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="18dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_above="@+id/shipping_addresses"
+        android:layout_alignRight="@+id/shipping_addresses"
+        android:layout_alignEnd="@+id/shipping_addresses"
+        android:layout_marginEnd="18dp"
+        android:clickable="true"
+        android:onClick="addAddress" />
+
+    <ListView
+        android:id="@+id/shipping_addresses"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:cacheColorHint="#00000000"
+        android:divider="#ffffff"
+        android:dividerHeight="10dp"
+        android:paddingTop="10dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
+        android:layout_below="@+id/shipping_title" />
+
+
+
+</RelativeLayout>
